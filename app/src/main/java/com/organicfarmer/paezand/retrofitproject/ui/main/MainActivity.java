@@ -1,38 +1,47 @@
 package com.organicfarmer.paezand.retrofitproject.ui.main;
 
 import android.os.Bundle;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.organicfarmer.paezand.retrofitproject.R;
 import com.organicfarmer.paezand.retrofitproject.data.api.RetrofitApi;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import timber.log.Timber;
+import com.organicfarmer.paezand.retrofitproject.data.model.Pixabay;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MvpActivity<IMainView, IMainPresenter> implements IMainView {
 
-    private static final String LOG = "MainActivity";
+    @BindView(R.id.text_view)
+    protected TextView textView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+    }
+
+    @NonNull
+    @Override
+    public IMainPresenter createPresenter() {
+        return new MainPresenter(RetrofitApi.getSharedInstance());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        RetrofitApi.getSharedInstance().getResultFor("volkswagen+car", new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Timber.tag(LOG).d(response.toString());
-            }
+        presenter.start();
+    }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Timber.tag(LOG).d(t.getMessage());
-            }
-        });
+    @Override
+    public void displayResult(Pixabay result) {
+        textView.setText(result.getTotalHits().toString());
+    }
+
+    @Override
+    public void displayErrorMessage(String message) {
+        textView.setText(message);
     }
 }

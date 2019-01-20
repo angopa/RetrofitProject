@@ -1,6 +1,7 @@
 package com.organicfarmer.paezand.retrofitproject.data.api;
 
 import androidx.annotation.NonNull;
+import com.organicfarmer.paezand.retrofitproject.data.model.Pixabay;
 import retrofit2.Callback;
 
 public class RetrofitApi extends BaseApi implements IRetrofitApi {
@@ -33,7 +34,7 @@ public class RetrofitApi extends BaseApi implements IRetrofitApi {
     }
 
     @Override
-    public void getResultFor(String query, Callback<Void> callback) {
+    public void getResultFor(String query, Callback<Pixabay> callback) {
         client.getForecast(KEY, query, "photo").enqueue(callback);
     }
 }
