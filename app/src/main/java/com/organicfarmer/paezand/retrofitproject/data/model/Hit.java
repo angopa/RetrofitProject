@@ -1,8 +1,9 @@
 package com.organicfarmer.paezand.retrofitproject.data.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.organicfarmer.paezand.retrofitproject.data.api.Validatable;
 
-public class Hit {
+public class Hit implements Validatable {
     @SerializedName("id")
     
     private Integer id;
@@ -170,5 +171,10 @@ public class Hit {
 
     public String getUserImageURL() {
         return userImageURL;
+    }
+
+    @Override
+    public boolean isValid() {
+        return !tags.isEmpty();
     }
 }

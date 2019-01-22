@@ -1,6 +1,7 @@
 package com.organicfarmer.paezand.retrofitproject.data.api;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import com.organicfarmer.paezand.retrofitproject.data.model.Pixabay;
 import retrofit2.Callback;
 
@@ -19,10 +20,11 @@ public class RetrofitApi extends BaseApi implements IRetrofitApi {
         }
     }
 
-    private static final String KEY = "6636610-01cefc60a1b5ae099e5fca2f0";
+    protected static final String KEY = "6636610-01cefc60a1b5ae099e5fca2f0";
 
     @NonNull
-    private final RetrofitClient client;
+    @VisibleForTesting
+    public final RetrofitClient client;
 
     public RetrofitApi() {
         this.client = getConfiguredRetrofitInstance().create(RetrofitClient.class);

@@ -31,12 +31,15 @@ public class MainActivityTest {
 
     @Test
     public void testRetrofitReturnListOfImages() throws InterruptedException {
+        //Schedule some responses
         mockWebServer.enqueue(new MockResponse()
-                .setResponseCode(200)
-                .setBody("{}"));
+                .addHeader("Content-Type", "application/json; charset=utf-8")
+                .addHeader("Cache-Control", "no-cache")
+                .setBody("hello world"));
 
         RecordedRequest request = mockWebServer.takeRequest();
         Assert.assertEquals("POST /v1/chat/send HTTP/1.1", request.getRequestLine());
-        Assert.assertEquals("{data{}}", request.getBody().readUtf8());
+//        Assert.assertEquals("application/json; charset=utf-8", request.getHeader("Content-Type"));
+//        Assert.assertEquals("{Hello world}", request.getBody().readUtf8());
     }
 }

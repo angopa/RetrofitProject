@@ -1,7 +1,7 @@
 package com.organicfarmer.paezand.retrofitproject.ui.main;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
-import com.organicfarmer.paezand.retrofitproject.data.api.RetrofitApi;
+import com.organicfarmer.paezand.retrofitproject.data.api.IRetrofitApi;
 import com.organicfarmer.paezand.retrofitproject.data.model.Pixabay;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -9,9 +9,9 @@ import retrofit2.Response;
 
 public class MainPresenter extends MvpBasePresenter<IMainView> implements IMainPresenter {
 
-    private final RetrofitApi retrofitApi;
+    private final IRetrofitApi retrofitApi;
 
-    public MainPresenter(final RetrofitApi retrofitApi) {
+    public MainPresenter(final IRetrofitApi retrofitApi) {
         this.retrofitApi = retrofitApi;
     }
 
